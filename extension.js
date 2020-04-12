@@ -179,6 +179,8 @@ function activate(context) {
 
 		// Display a message box to the user
 		selectWorkspaceFolder();
+			
+		
 		
 	});
 

@@ -2,6 +2,7 @@
 	"name": "p5js-files-creater",
 	"displayName": "p5js project creater",
 	"description": "instantly create pjs project files",
+	"publisher": "voleti",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.43.0"
@@ -15,8 +16,9 @@
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
-			{
-				"command": "p5jsprojectcreater.createProject",
+			{	
+				"vscode:prepublish": "npm run compile",
+				"command": "p5jsprojectcreator.createProject",
 				"title": "p5js : Create New Project "
 			}
 		]
@@ -37,6 +39,10 @@
 		"typescript": "^3.8.3",
 		"vscode-test": "^1.3.0"
 	},
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/voletiananth/p5js-vscode-extenstion.git"
+    },
 	"dependencies": {
 		"uri": "^0.1.0"
 	}

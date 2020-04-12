@@ -1,6 +1,4 @@
-# p5js README
 
-This is the README for your extension "p5js". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
@@ -19,8 +17,3 @@ For example:
 Initial release of this.
 
 
-
------------------------------------------------------------------------------------------------------------
-
-
-**Enjoy!**
