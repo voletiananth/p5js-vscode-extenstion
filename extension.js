@@ -23,7 +23,7 @@ function generateHTML(path,scriptname){
 
 
 const scriptCND = 'https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js';
-	const data = "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<title>Welcome</title>\n\t\t<meta charset=\"UTF-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<script src="+scriptCND+" ></script>\n\t\t<script src=\""+scriptname+"\".js></script>\n\t</head><body></body>\n</html>";
+	const data = "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<title>Welcome</title>\n\t\t<meta charset=\"UTF-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<script src="+scriptCND+" ></script>\n\t\t<script src=\""+scriptname+".js\"></script>\n\t</head><body></body>\n</html>";
 	const dataArray = new Uint8Array(Buffer.from(data));
 	const file = path+"/"+"index.html"; 
 	filesystem.writeFile(file,dataArray,(err)=>{
