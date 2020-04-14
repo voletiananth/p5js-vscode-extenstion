@@ -17,14 +17,31 @@ const filesystem = require('fs');
 
 /**
  * @param {string} path
- * @param {string} scriptname
  */
-function generateHTML(path,scriptname){
+function generateHTML(path){
 
 
-const scriptCND = 'https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js';
-	const data = "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<title>Welcome</title>\n\t\t<meta charset=\"UTF-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<script src="+scriptCND+" ></script>\n\t\t<script src=\""+scriptname+".js\"></script>\n\t</head><body></body>\n</html>";
-	const dataArray = new Uint8Array(Buffer.from(data));
+
+	const html = `<!DOCTYPE html>
+	<html>
+	
+	<head>
+	  <meta charset="UTF-8">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	  <title>Welcome</title>
+	  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script>
+	  <script src="sketch.js" type="text/javascript"></script>
+	</head>
+	
+	<body>
+	</body>
+	
+	</html>
+	
+	`
+	const dataArray = new Uint8Array(Buffer.from(html));
 	const file = path+"/"+"index.html"; 
 	filesystem.writeFile(file,dataArray,(err)=>{
 		if (err){
@@ -43,12 +60,12 @@ const scriptCND = 'https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js';
 
 /**
  * @param {string} path
- * @param {string} filename
+ * 
  */
-function generateProjectjs(path,filename){
+function generateProjectjs(path,){
 	const scriptData = "function setup(){\n\n}\n\nfunction draw(){\n\n}";
 	const dataArray = new Uint8Array(Buffer.from(scriptData));
-	const file = path+"/"+filename+".js"; 
+	const file = path+"/sketch.js"; 
 	filesystem.writeFile(file,dataArray,(err)=>{
 		if (err){
 			vscode.window.showInformationMessage(err.message)
@@ -80,19 +97,28 @@ function changePermission(files){
  */
 function generateProjectFolder(uriPath,projectName){
 
-	try{
-		filesystem.mkdir(uriPath+"/"+projectName,(err)=>{
-			if(err) throw err;
+	
+	if(!filesystem.existsSync(uriPath+"/"+projectName)){
+		try{
+			filesystem.mkdir(uriPath+"/"+projectName,(err)=>{
+				if(err) throw err;
+				
+		})
+	
+			return uriPath+"/"+projectName+"/";
+	
+		}catch(error)
+		{
 			
-	})
+			return undefined;
+		}
 
-		return uriPath+"/"+projectName+"/";
-
-	}catch(error)
-	{
+	}else{
 		vscode.window.showInformationMessage("Project Already Exists");
 		return undefined;
 	}
+
+	
 	
 	
 }
@@ -116,8 +142,8 @@ function selectWorkspaceFolder(){
 						let uriOfWorkspace = uri[0];
 					 const status =	generateProjectFolder(uriOfWorkspace.path,projectName)
 						if(status != undefined){
-							generateHTML(status,projectName);
-							generateProjectjs(status,projectName)
+							generateHTML(status);
+							generateProjectjs(status)
 						}
 						
 						vscode.commands.executeCommand('vscode.openFolder', uriOfWorkspace);
@@ -129,8 +155,8 @@ function selectWorkspaceFolder(){
 						workspacefolder => {
 						const status =	generateProjectFolder(workspacefolder.uri.path,projectName)
 						if(status != undefined){
-							generateHTML(status,projectName);
-							generateProjectjs(status,projectName)
+							generateHTML(status);
+							generateProjectjs(status)
 						}
 							vscode.commands.executeCommand('vscode.openFolder', workspacefolder.uri);
 						}
@@ -141,8 +167,8 @@ function selectWorkspaceFolder(){
 					
 					if(status != undefined){
 						
-						generateHTML(status,projectName);
-						generateProjectjs(status,projectName)
+						generateHTML(status);
+						generateProjectjs(status)
 					}	
 					vscode.commands.executeCommand('vscode.openFolder',uriOfWorkspace)				
 				}
