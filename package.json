@@ -2,7 +2,7 @@
 	"name": "p5js-files-creater",
 	"displayName": "p5js project creater",
 	"description": "instantly create pjs project files",
-	"publisher": "voleti",
+	"publisher": "voletiananthkumar",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.43.0"
